@@ -5,9 +5,7 @@ import io.javalin.http.Context;
 import io.javalin.websocket.WsConfig;
 
 public class GameController implements CrudHandler {
-    static void gameEvents(WsConfig config) {}
-
-    static void chatEvents(WsConfig config) {}
+    static void webSocketEvents(WsConfig config) {}
 
     @Override
     public void create(Context arg0) {

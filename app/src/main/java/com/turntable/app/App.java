@@ -9,11 +9,11 @@ public class App {
     public static void main(String[] args) {
         Javalin.create(config -> {
             config.routes.apiBuilder(() -> {
-                crud("", new UserController());
-                crud("", new FriendController());
-                crud("", new GameController());
-                ws("", GameController::gameEvents);
-                ws("", GameController::chatEvents);
+                crud("/users/{user-id}", new UserController());
+                crud("/friends/{friend-id}", new FriendController());
+                crud("/games/{game-id}", new GameController());
+                ws("/games/{game-id}/ws", GameController::webSocketEvents);
+                ws("/chat/{chat-id}/ws", ChatController::webSocketEvents);
             });
         }).start();
     }

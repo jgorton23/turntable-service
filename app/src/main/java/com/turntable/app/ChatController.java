@@ -2,8 +2,10 @@ package com.turntable.app;
 
 import io.javalin.apibuilder.CrudHandler;
 import io.javalin.http.Context;
+import io.javalin.websocket.WsConfig;
 
-public class UserController implements CrudHandler {
+public class ChatController implements CrudHandler {
+    static void webSocketEvents(WsConfig config) {}
 
     @Override
     public void create(Context arg0) {
@@ -24,8 +26,9 @@ public class UserController implements CrudHandler {
     }
 
     @Override
-    public void getOne(Context ctx, String userId) {
-        ctx.result(userId);
+    public void getOne(Context arg0, String arg1) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getOne'");
     }
 
     @Override
