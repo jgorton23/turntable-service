@@ -9,6 +9,7 @@ plugins {
 }
 
 dependencies {
+    implementation("io.javalin:javalin:7.1.0")
     implementation("org.apache.commons:commons-text")
     implementation(project(":utilities"))
 }
