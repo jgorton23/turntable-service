@@ -12,6 +12,7 @@ public class App {
                 crud("/users/{user-id}", new UserController());
                 crud("/friends/{friend-id}", new FriendController());
                 crud("/games/{game-id}", new GameController());
+                crud("/chat/{chat-id}", new ChatController());
                 ws("/games/{game-id}/ws", GameController::webSocketEvents);
                 ws("/chat/{chat-id}/ws", ChatController::webSocketEvents);
             });
