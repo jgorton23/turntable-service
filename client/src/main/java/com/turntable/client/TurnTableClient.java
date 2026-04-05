@@ -17,6 +17,7 @@ import com.turntable.client.user.IUserClient;
 import com.turntable.client.user.IUserDao;
 import com.turntable.client.user.User;
 import lombok.Builder;
+import lombok.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,15 +27,19 @@ import java.util.List;
 public class TurnTableClient implements IUserClient, IGameClient, IFriendClient, IChatClient {
 
     /** Data access for user operations. */
+    @NonNull
     private final IUserDao userDao;
 
     /** Data access for game operations. */
+    @NonNull
     private final IGameDao gameDao;
 
     /** Data access for friend operations. */
+    @NonNull
     private final IFriendDao friendDao;
 
     /** Data access for chat operations. */
+    @NonNull
     private final IChatDao chatDao;
 
     // --- IUserClient ---
