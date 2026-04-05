@@ -1,8 +1,11 @@
-package com.turntable.app;
+package com.turntable.app.controller;
 
 import io.javalin.apibuilder.CrudHandler;
 import io.javalin.http.Context;
+import javax.inject.Inject;
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor(onConstructor_ = {@Inject})
 public class FriendController implements CrudHandler {
 
     @Override
@@ -34,5 +37,5 @@ public class FriendController implements CrudHandler {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'update'");
     }
-    
+
 }

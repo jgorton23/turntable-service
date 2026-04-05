@@ -1,11 +1,15 @@
-package com.turntable.app;
+package com.turntable.app.controller;
 
 import io.javalin.apibuilder.CrudHandler;
 import io.javalin.http.Context;
 import io.javalin.websocket.WsConfig;
+import javax.inject.Inject;
+import lombok.RequiredArgsConstructor;
 
-public class ChatController implements CrudHandler {
-    static void webSocketEvents(WsConfig config) {}
+@RequiredArgsConstructor(onConstructor_ = {@Inject})
+public class GameController implements CrudHandler {
+
+    public void webSocketEvents(WsConfig config) {}
 
     @Override
     public void create(Context arg0) {
@@ -36,5 +40,4 @@ public class ChatController implements CrudHandler {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'update'");
     }
-    
 }

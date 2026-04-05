@@ -14,6 +14,10 @@ dependencies {
     implementation("org.slf4j:slf4j-simple:2.0.17")
     implementation("org.apache.commons:commons-text")
     implementation(project(":utilities"))
+    compileOnly("org.projectlombok:lombok:1.18.36")
+    annotationProcessor("org.projectlombok:lombok:1.18.36")
+    implementation("com.google.dagger:dagger:2.52")
+    annotationProcessor("com.google.dagger:dagger-compiler:2.52")
 }
 
 application {

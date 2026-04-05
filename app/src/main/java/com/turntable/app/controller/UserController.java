@@ -1,11 +1,12 @@
-package com.turntable.app;
+package com.turntable.app.controller;
 
 import io.javalin.apibuilder.CrudHandler;
 import io.javalin.http.Context;
-import io.javalin.websocket.WsConfig;
+import javax.inject.Inject;
+import lombok.RequiredArgsConstructor;
 
-public class GameController implements CrudHandler {
-    static void webSocketEvents(WsConfig config) {}
+@RequiredArgsConstructor(onConstructor_ = {@Inject})
+public class UserController implements CrudHandler {
 
     @Override
     public void create(Context arg0) {
@@ -26,9 +27,8 @@ public class GameController implements CrudHandler {
     }
 
     @Override
-    public void getOne(Context arg0, String arg1) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getOne'");
+    public void getOne(Context ctx, String userId) {
+        ctx.result(userId);
     }
 
     @Override
@@ -36,4 +36,5 @@ public class GameController implements CrudHandler {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'update'");
     }
+
 }
