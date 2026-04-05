@@ -1,9 +1,17 @@
 package com.turntable.client;
 
-import com.turntable.client.interfaces.IChatClient;
-import com.turntable.client.interfaces.IFriendClient;
-import com.turntable.client.interfaces.IGameClient;
-import com.turntable.client.interfaces.IUserClient;
+import com.turntable.client.chat.ChatMessage;
+import com.turntable.client.chat.IChatClient;
+import com.turntable.client.friend.Friend;
+import com.turntable.client.friend.FriendStatus;
+import com.turntable.client.friend.IFriendClient;
+import com.turntable.client.game.Game;
+import com.turntable.client.game.GameStatus;
+import com.turntable.client.game.IGameClient;
+import com.turntable.client.game.Move;
+import com.turntable.client.user.IUserClient;
+
+import java.util.List;
 
 public class TurnTableClient implements IUserClient, IGameClient, IFriendClient, IChatClient {
 
@@ -14,16 +22,6 @@ public class TurnTableClient implements IUserClient, IGameClient, IFriendClient,
     @Override
     public void createUser() {
         throw new UnsupportedOperationException("Unimplemented method 'createUser'");
-    }
-
-    @Override
-    public void getUser(String userId) {
-        throw new UnsupportedOperationException("Unimplemented method 'getUser'");
-    }
-
-    @Override
-    public void getAllUsers() {
-        throw new UnsupportedOperationException("Unimplemented method 'getAllUsers'");
     }
 
     @Override
@@ -39,81 +37,86 @@ public class TurnTableClient implements IUserClient, IGameClient, IFriendClient,
     // --- IGameClient ---
 
     @Override
-    public void createGame() {
+    public Game createGame(Game game) {
         throw new UnsupportedOperationException("Unimplemented method 'createGame'");
     }
 
     @Override
-    public void getGame(String gameId) {
+    public Game getGame(String gameId) {
         throw new UnsupportedOperationException("Unimplemented method 'getGame'");
     }
 
     @Override
-    public void getAllGames() {
-        throw new UnsupportedOperationException("Unimplemented method 'getAllGames'");
+    public List<Game> listGames(String playerId, GameStatus status) {
+        throw new UnsupportedOperationException("Unimplemented method 'listGames'");
     }
 
     @Override
-    public void updateGame(String gameId) {
-        throw new UnsupportedOperationException("Unimplemented method 'updateGame'");
+    public void cancelGame(String gameId) {
+        throw new UnsupportedOperationException("Unimplemented method 'cancelGame'");
     }
 
     @Override
-    public void deleteGame(String gameId) {
-        throw new UnsupportedOperationException("Unimplemented method 'deleteGame'");
+    public void joinGame(String gameId, String playerId) {
+        throw new UnsupportedOperationException("Unimplemented method 'joinGame'");
+    }
+
+    @Override
+    public void startGame(String gameId) {
+        throw new UnsupportedOperationException("Unimplemented method 'startGame'");
+    }
+
+    @Override
+    public void endGame(String gameId) {
+        throw new UnsupportedOperationException("Unimplemented method 'endGame'");
+    }
+
+    @Override
+    public List<Move> listMoves(String gameId) {
+        throw new UnsupportedOperationException("Unimplemented method 'listMoves'");
+    }
+
+    @Override
+    public void doMove(String gameId, String playerId, Move move) {
+        throw new UnsupportedOperationException("Unimplemented method 'doMove'");
     }
 
     // --- IFriendClient ---
 
     @Override
-    public void addFriend(String friendId) {
-        throw new UnsupportedOperationException("Unimplemented method 'addFriend'");
+    public List<Friend> listFriends(String userId, FriendStatus status) {
+        throw new UnsupportedOperationException("Unimplemented method 'listFriends'");
     }
 
     @Override
-    public void getFriend(String friendId) {
-        throw new UnsupportedOperationException("Unimplemented method 'getFriend'");
+    public void sendFriendRequest(String fromUserId, String toUserId) {
+        throw new UnsupportedOperationException("Unimplemented method 'sendFriendRequest'");
     }
 
     @Override
-    public void getAllFriends() {
-        throw new UnsupportedOperationException("Unimplemented method 'getAllFriends'");
+    public void acceptFriendRequest(String fromUserId, String toUserId) {
+        throw new UnsupportedOperationException("Unimplemented method 'acceptFriendRequest'");
     }
 
     @Override
-    public void updateFriend(String friendId) {
-        throw new UnsupportedOperationException("Unimplemented method 'updateFriend'");
+    public void declineFriendRequest(String fromUserId, String toUserId) {
+        throw new UnsupportedOperationException("Unimplemented method 'declineFriendRequest'");
     }
 
     @Override
-    public void removeFriend(String friendId) {
+    public void removeFriend(String userId, String friendId) {
         throw new UnsupportedOperationException("Unimplemented method 'removeFriend'");
     }
 
     // --- IChatClient ---
 
     @Override
-    public void createChat() {
-        throw new UnsupportedOperationException("Unimplemented method 'createChat'");
+    public void sendMessage(String chatId, ChatMessage message) {
+        throw new UnsupportedOperationException("Unimplemented method 'sendMessage'");
     }
 
     @Override
-    public void getChat(String chatId) {
-        throw new UnsupportedOperationException("Unimplemented method 'getChat'");
-    }
-
-    @Override
-    public void getAllChats() {
-        throw new UnsupportedOperationException("Unimplemented method 'getAllChats'");
-    }
-
-    @Override
-    public void updateChat(String chatId) {
-        throw new UnsupportedOperationException("Unimplemented method 'updateChat'");
-    }
-
-    @Override
-    public void deleteChat(String chatId) {
-        throw new UnsupportedOperationException("Unimplemented method 'deleteChat'");
+    public List<ChatMessage> listMessages(String chatId) {
+        throw new UnsupportedOperationException("Unimplemented method 'listMessages'");
     }
 }
