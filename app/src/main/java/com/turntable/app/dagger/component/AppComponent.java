@@ -4,9 +4,13 @@ import com.turntable.app.controller.ChatController;
 import com.turntable.app.controller.FriendController;
 import com.turntable.app.controller.GameController;
 import com.turntable.app.controller.UserController;
+import com.turntable.app.dagger.module.ClientModule;
 import dagger.Component;
 
-@Component
+import javax.inject.Singleton;
+
+@Singleton
+@Component(modules = ClientModule.class)
 public interface AppComponent {
     UserController userController();
     FriendController friendController();
