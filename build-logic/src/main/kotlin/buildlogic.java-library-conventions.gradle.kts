@@ -11,3 +11,18 @@ plugins {
     // Apply the java-library plugin for API and implementation separation.
     `java-library`
 }
+
+tasks.javadoc {
+    options {
+        (this as StandardJavadocDocletOptions).apply {
+            addBooleanOption("html5", true)
+            encoding = "UTF-8"
+            addBooleanOption("Xdoclint:missing", true)
+            // addBooleanOption("Werror", true)
+        }
+    }
+}
+
+tasks.build {
+    dependsOn(tasks.javadoc)
+}
