@@ -7,9 +7,11 @@ import com.turntable.client.friend.FriendStatus;
 import com.turntable.client.friend.IFriendClient;
 import com.turntable.client.game.Game;
 import com.turntable.client.game.GameStatus;
+import com.turntable.client.game.GameResult;
 import com.turntable.client.game.IGameClient;
 import com.turntable.client.game.Move;
 import com.turntable.client.user.IUserClient;
+import com.turntable.client.user.User;
 
 import java.util.List;
 
@@ -23,13 +25,13 @@ public class TurnTableClient implements IUserClient, IGameClient, IFriendClient,
 
     /** {@inheritDoc} */
     @Override
-    public void createUser() {
+    public User createUser(User user) {
         throw new UnsupportedOperationException("Unimplemented method 'createUser'");
     }
 
     /** {@inheritDoc} */
     @Override
-    public void updateUser(String userId) {
+    public void updateUser(String userId, User user) {
         throw new UnsupportedOperationException("Unimplemented method 'updateUser'");
     }
 
@@ -79,7 +81,7 @@ public class TurnTableClient implements IUserClient, IGameClient, IFriendClient,
 
     /** {@inheritDoc} */
     @Override
-    public void endGame(String gameId) {
+    public void endGame(String gameId, GameResult result) {
         throw new UnsupportedOperationException("Unimplemented method 'endGame'");
     }
 

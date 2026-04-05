@@ -5,15 +5,19 @@ public interface IUserClient {
 
     /**
      * Creates a new user.
+     *
+     * @param user the user to create
+     * @return the created user
      */
-    void createUser();
+    User createUser(User user);
 
     /**
      * Updates an existing user's details.
      *
      * @param userId the ID of the user to update
+     * @param user   the updated user data
      */
-    void updateUser(String userId);
+    void updateUser(String userId, User user);
 
     /**
      * Deletes a user.

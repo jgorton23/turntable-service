@@ -27,5 +27,5 @@ public class Game {
     private final String currentPlayer;
 
     /** The result of the game, or null if the game has not ended. */
-    private final String result;
+    private final GameResult result;
 }

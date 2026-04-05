@@ -56,8 +56,9 @@ public interface IGameClient {
      * Ends a game, transitioning it from STARTED to ENDED.
      *
      * @param gameId the ID of the game to end
+     * @param result the result of the game
      */
-    void endGame(String gameId);
+    void endGame(String gameId, GameResult result);
 
     /**
      * Lists all moves made in a game.
