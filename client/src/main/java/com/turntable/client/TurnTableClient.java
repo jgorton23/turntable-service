@@ -107,19 +107,19 @@ public class TurnTableClient implements IUserClient, IGameClient, IFriendClient,
 
     /** {@inheritDoc} */
     @Override
-    public void sendFriendRequest(String fromUserId, String toUserId) {
+    public void sendFriendRequest(String userId, String toUserId) {
         throw new UnsupportedOperationException("Unimplemented method 'sendFriendRequest'");
     }
 
     /** {@inheritDoc} */
     @Override
-    public void acceptFriendRequest(String fromUserId, String toUserId) {
+    public void acceptFriendRequest(String userId, String requesterId) {
         throw new UnsupportedOperationException("Unimplemented method 'acceptFriendRequest'");
     }
 
     /** {@inheritDoc} */
     @Override
-    public void declineFriendRequest(String fromUserId, String toUserId) {
+    public void declineFriendRequest(String userId, String requesterId) {
         throw new UnsupportedOperationException("Unimplemented method 'declineFriendRequest'");
     }
 
