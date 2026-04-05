@@ -2,6 +2,7 @@ package com.turntable.client.game;
 
 import java.util.List;
 
+/** Defines game operations. */
 public interface IGameClient {
 
     /**

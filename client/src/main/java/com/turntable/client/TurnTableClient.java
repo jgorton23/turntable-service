@@ -13,8 +13,10 @@ import com.turntable.client.user.IUserClient;
 
 import java.util.List;
 
+/** Default implementation of the TurnTable client interfaces. */
 public class TurnTableClient implements IUserClient, IGameClient, IFriendClient, IChatClient {
 
+    /** Creates a new TurnTableClient. */
     public TurnTableClient() {}
 
     // --- IUserClient ---

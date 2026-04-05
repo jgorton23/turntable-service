@@ -5,6 +5,7 @@ import lombok.Data;
 
 import java.time.Instant;
 
+/** Represents a message sent in a chat. */
 @Data
 @Builder
 public class ChatMessage {

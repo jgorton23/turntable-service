@@ -3,6 +3,7 @@ package com.turntable.client.user;
 import lombok.Builder;
 import lombok.Data;
 
+/** Represents a TurnTable user. */
 @Data
 @Builder
 public class User {

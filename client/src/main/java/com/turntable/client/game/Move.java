@@ -5,6 +5,7 @@ import lombok.Data;
 
 import java.time.Instant;
 
+/** Represents a move made by a player in a game. */
 @Data
 @Builder
 public class Move {

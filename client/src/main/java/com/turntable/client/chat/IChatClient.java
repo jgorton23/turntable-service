@@ -2,6 +2,7 @@ package com.turntable.client.chat;
 
 import java.util.List;
 
+/** Defines chat operations. */
 public interface IChatClient {
 
     /**

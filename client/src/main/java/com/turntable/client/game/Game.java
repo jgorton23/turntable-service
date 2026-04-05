@@ -6,6 +6,7 @@ import lombok.Data;
 import java.time.Instant;
 import java.util.List;
 
+/** Represents a TurnTable game. */
 @Data
 @Builder
 public class Game {

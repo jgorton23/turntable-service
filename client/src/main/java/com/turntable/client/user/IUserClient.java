@@ -1,5 +1,6 @@
 package com.turntable.client.user;
 
+/** Defines user management operations. */
 public interface IUserClient {
 
     /**

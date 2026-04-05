@@ -2,6 +2,7 @@ package com.turntable.client.friend;
 
 import java.util.List;
 
+/** Defines friend management operations for a user. */
 public interface IFriendClient {
 
     /**

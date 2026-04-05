@@ -5,6 +5,7 @@ import lombok.Data;
 
 import java.time.Instant;
 
+/** Represents a friend relationship between two users. */
 @Data
 @Builder
 public class Friend {
