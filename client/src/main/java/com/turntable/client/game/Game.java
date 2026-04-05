@@ -8,7 +8,7 @@ import java.util.List;
 
 /** Represents a TurnTable game. */
 @Data
-@Builder
+@Builder(toBuilder = true)
 public class Game {
 
     /** The unique identifier for this game. */

@@ -2,43 +2,59 @@ package com.turntable.client;
 
 import com.turntable.client.chat.ChatMessage;
 import com.turntable.client.chat.IChatClient;
+import com.turntable.client.chat.IChatDao;
 import com.turntable.client.friend.Friend;
 import com.turntable.client.friend.FriendStatus;
 import com.turntable.client.friend.IFriendClient;
+import com.turntable.client.friend.IFriendDao;
 import com.turntable.client.game.Game;
-import com.turntable.client.game.GameStatus;
 import com.turntable.client.game.GameResult;
+import com.turntable.client.game.GameStatus;
 import com.turntable.client.game.IGameClient;
+import com.turntable.client.game.IGameDao;
 import com.turntable.client.game.Move;
 import com.turntable.client.user.IUserClient;
+import com.turntable.client.user.IUserDao;
 import com.turntable.client.user.User;
+import lombok.Builder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /** Default implementation of the TurnTable client interfaces. */
+@Builder
 public class TurnTableClient implements IUserClient, IGameClient, IFriendClient, IChatClient {
 
-    /** Creates a new TurnTableClient. */
-    public TurnTableClient() {}
+    /** Data access for user operations. */
+    private final IUserDao userDao;
+
+    /** Data access for game operations. */
+    private final IGameDao gameDao;
+
+    /** Data access for friend operations. */
+    private final IFriendDao friendDao;
+
+    /** Data access for chat operations. */
+    private final IChatDao chatDao;
 
     // --- IUserClient ---
 
     /** {@inheritDoc} */
     @Override
     public User createUser(User user) {
-        throw new UnsupportedOperationException("Unimplemented method 'createUser'");
+        return userDao.create(user);
     }
 
     /** {@inheritDoc} */
     @Override
     public void updateUser(String userId, User user) {
-        throw new UnsupportedOperationException("Unimplemented method 'updateUser'");
+        userDao.update(userId, user);
     }
 
     /** {@inheritDoc} */
     @Override
     public void deleteUser(String userId) {
-        throw new UnsupportedOperationException("Unimplemented method 'deleteUser'");
+        userDao.delete(userId);
     }
 
     // --- IGameClient ---
@@ -46,55 +62,61 @@ public class TurnTableClient implements IUserClient, IGameClient, IFriendClient,
     /** {@inheritDoc} */
     @Override
     public Game createGame(Game game) {
-        throw new UnsupportedOperationException("Unimplemented method 'createGame'");
+        return gameDao.create(game);
     }
 
     /** {@inheritDoc} */
     @Override
     public Game getGame(String gameId) {
-        throw new UnsupportedOperationException("Unimplemented method 'getGame'");
+        return gameDao.findById(gameId);
     }
 
     /** {@inheritDoc} */
     @Override
     public List<Game> listGames(String playerId, GameStatus status) {
-        throw new UnsupportedOperationException("Unimplemented method 'listGames'");
+        return gameDao.findByPlayer(playerId, status);
     }
 
     /** {@inheritDoc} */
     @Override
     public void cancelGame(String gameId) {
-        throw new UnsupportedOperationException("Unimplemented method 'cancelGame'");
+        Game game = gameDao.findById(gameId);
+        gameDao.update(gameId, game.toBuilder().status(GameStatus.CANCELLED).build());
     }
 
     /** {@inheritDoc} */
     @Override
     public void joinGame(String gameId, String playerId) {
-        throw new UnsupportedOperationException("Unimplemented method 'joinGame'");
+        Game game = gameDao.findById(gameId);
+        List<String> players = new ArrayList<>(game.getPlayers());
+        players.add(playerId);
+        gameDao.update(gameId, game.toBuilder().players(players).build());
     }
 
     /** {@inheritDoc} */
     @Override
     public void startGame(String gameId) {
-        throw new UnsupportedOperationException("Unimplemented method 'startGame'");
+        Game game = gameDao.findById(gameId);
+        gameDao.update(gameId, game.toBuilder().status(GameStatus.STARTED).build());
     }
 
     /** {@inheritDoc} */
     @Override
     public void endGame(String gameId, GameResult result) {
-        throw new UnsupportedOperationException("Unimplemented method 'endGame'");
+        Game game = gameDao.findById(gameId);
+        gameDao.update(gameId, game.toBuilder().status(GameStatus.ENDED).result(result).build());
     }
 
     /** {@inheritDoc} */
     @Override
     public List<Move> listMoves(String gameId) {
-        throw new UnsupportedOperationException("Unimplemented method 'listMoves'");
+        return gameDao.findMoves(gameId);
     }
 
     /** {@inheritDoc} */
     @Override
     public void doMove(String gameId, String playerId, Move move) {
-        throw new UnsupportedOperationException("Unimplemented method 'doMove'");
+        gameDao.createMove(gameId, move);
     }
 
     // --- IFriendClient ---
@@ -102,31 +124,31 @@ public class TurnTableClient implements IUserClient, IGameClient, IFriendClient,
     /** {@inheritDoc} */
     @Override
     public List<Friend> listFriends(String userId, FriendStatus status) {
-        throw new UnsupportedOperationException("Unimplemented method 'listFriends'");
+        return friendDao.findByUser(userId, status);
     }
 
     /** {@inheritDoc} */
     @Override
     public void sendFriendRequest(String userId, String toUserId) {
-        throw new UnsupportedOperationException("Unimplemented method 'sendFriendRequest'");
+        friendDao.create(userId, toUserId);
     }
 
     /** {@inheritDoc} */
     @Override
     public void acceptFriendRequest(String userId, String requesterId) {
-        throw new UnsupportedOperationException("Unimplemented method 'acceptFriendRequest'");
+        friendDao.updateStatus(userId, requesterId, FriendStatus.ACCEPTED);
     }
 
     /** {@inheritDoc} */
     @Override
     public void declineFriendRequest(String userId, String requesterId) {
-        throw new UnsupportedOperationException("Unimplemented method 'declineFriendRequest'");
+        friendDao.delete(userId, requesterId);
     }
 
     /** {@inheritDoc} */
     @Override
     public void removeFriend(String userId, String friendId) {
-        throw new UnsupportedOperationException("Unimplemented method 'removeFriend'");
+        friendDao.delete(userId, friendId);
     }
 
     // --- IChatClient ---
@@ -134,12 +156,12 @@ public class TurnTableClient implements IUserClient, IGameClient, IFriendClient,
     /** {@inheritDoc} */
     @Override
     public void sendMessage(String chatId, ChatMessage message) {
-        throw new UnsupportedOperationException("Unimplemented method 'sendMessage'");
+        chatDao.create(chatId, message);
     }
 
     /** {@inheritDoc} */
     @Override
     public List<ChatMessage> listMessages(String chatId) {
-        throw new UnsupportedOperationException("Unimplemented method 'listMessages'");
+        return chatDao.findByChatId(chatId);
     }
 }

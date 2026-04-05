@@ -10,5 +10,8 @@ public enum GameStatus {
     STARTED,
 
     /** The game has ended. */
-    ENDED
+    ENDED,
+
+    /** The game was cancelled before it started. */
+    CANCELLED
 }
