@@ -13,7 +13,7 @@ dependencies {
     implementation("io.javalin:javalin:7.1.0")
     implementation("org.slf4j:slf4j-simple:2.0.17")
     implementation("org.apache.commons:commons-text")
-    implementation(project(":utilities"))
+    implementation(project(":client"))
     compileOnly("org.projectlombok:lombok:1.18.36")
     annotationProcessor("org.projectlombok:lombok:1.18.36")
     implementation("com.google.dagger:dagger:2.52")
