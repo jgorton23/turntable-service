@@ -17,4 +17,4 @@ plugins {
 }
 
 rootProject.name = "turntable-service"
-include("app", "client", "ddb")
+include("app", "client", "ddb", "integ")

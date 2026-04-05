@@ -7,8 +7,6 @@ import lombok.RequiredArgsConstructor;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
 import software.amazon.awssdk.services.dynamodb.model.DeleteItemRequest;
-import software.amazon.awssdk.services.dynamodb.model.GetItemRequest;
-import software.amazon.awssdk.services.dynamodb.model.GetItemResponse;
 import software.amazon.awssdk.services.dynamodb.model.PutItemRequest;
 import software.amazon.awssdk.services.dynamodb.model.QueryRequest;
 import software.amazon.awssdk.services.dynamodb.model.QueryResponse;
@@ -27,7 +25,7 @@ import java.util.stream.Collectors;
  * <ul>
  *   <li>PK: {@code userId} — the user who owns this view of the relationship</li>
  *   <li>SK: {@code friendId} — the friend's user ID</li>
- *   <li>Attributes: {@code friendUsername}, {@code status}, {@code friendsSince} (optional)</li>
+ *   <li>Attributes: {@code status}, {@code friendsSince} (optional)</li>
  * </ul>
  *
  * <p>Each friendship is stored as two items — one from each user's perspective —
@@ -38,14 +36,11 @@ public class DynamoFriendDao implements IFriendDao {
 
     private static final String USER_ID = "userId";
     private static final String FRIEND_ID = "friendId";
-    private static final String FRIEND_USERNAME = "friendUsername";
     private static final String STATUS = "status";
     private static final String FRIENDS_SINCE = "friendsSince";
-    private static final String USERNAME = "username";
 
     private final DynamoDbClient dynamoDbClient;
     private final String friendsTableName;
-    private final String usersTableName;
 
     @Override
     public List<Friend> findByUser(String userId, FriendStatus status) {
@@ -70,12 +65,8 @@ public class DynamoFriendDao implements IFriendDao {
 
     @Override
     public void create(String fromUserId, String toUserId) {
-        String fromUsername = getUsername(fromUserId);
-        String toUsername = getUsername(toUserId);
-
-        // fromUser sees INVITATION_SENT; toUser sees INVITATION_RECEIVED
-        putFriendItem(fromUserId, toUserId, toUsername, FriendStatus.INVITATION_SENT, null);
-        putFriendItem(toUserId, fromUserId, fromUsername, FriendStatus.INVITATION_RECEIVED, null);
+        putFriendItem(fromUserId, toUserId, FriendStatus.INVITATION_SENT, null);
+        putFriendItem(toUserId, fromUserId, FriendStatus.INVITATION_RECEIVED, null);
     }
 
     @Override
@@ -120,21 +111,10 @@ public class DynamoFriendDao implements IFriendDao {
                 .build());
     }
 
-    private String getUsername(String userId) {
-        GetItemResponse response = dynamoDbClient.getItem(GetItemRequest.builder()
-                .tableName(usersTableName)
-                .key(Map.of(USER_ID, AttributeValue.fromS(userId)))
-                .projectionExpression(USERNAME)
-                .build());
-        return response.item().get(USERNAME).s();
-    }
-
-    private void putFriendItem(String userId, String friendId, String friendUsername,
-                               FriendStatus status, Instant friendsSince) {
+    private void putFriendItem(String userId, String friendId, FriendStatus status, Instant friendsSince) {
         Map<String, AttributeValue> item = new HashMap<>();
         item.put(USER_ID, AttributeValue.fromS(userId));
         item.put(FRIEND_ID, AttributeValue.fromS(friendId));
-        item.put(FRIEND_USERNAME, AttributeValue.fromS(friendUsername));
         item.put(STATUS, AttributeValue.fromS(status.name()));
         if (friendsSince != null) {
             item.put(FRIENDS_SINCE, AttributeValue.fromS(friendsSince.toString()));
@@ -148,7 +128,7 @@ public class DynamoFriendDao implements IFriendDao {
 
     private Friend itemToFriend(Map<String, AttributeValue> item) {
         return Friend.builder()
-                .username(item.get(FRIEND_USERNAME).s())
+                .friendId(item.get(FRIEND_ID).s())
                 .status(FriendStatus.valueOf(item.get(STATUS).s()))
                 .friendsSince(item.containsKey(FRIENDS_SINCE)
                         ? Instant.parse(item.get(FRIENDS_SINCE).s())

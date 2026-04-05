@@ -8,4 +8,5 @@ dependencies {
     implementation("software.amazon.awssdk:dynamodb")
     compileOnly("org.projectlombok:lombok:1.18.36")
     annotationProcessor("org.projectlombok:lombok:1.18.36")
+    testImplementation("org.mockito:mockito-core:5.17.0")
 }

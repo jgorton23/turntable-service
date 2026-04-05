@@ -10,8 +10,8 @@ import java.time.Instant;
 @Builder
 public class Friend {
 
-    /** The friend's display name. */
-    private final String username;
+    /** The friend's user ID. */
+    private final String friendId;
 
     /** The current status of the friendship (ACCEPTED, INVITATION_SENT, INVITATION_RECEIVED). */
     private final FriendStatus status;
