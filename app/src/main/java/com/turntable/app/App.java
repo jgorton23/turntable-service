@@ -16,12 +16,10 @@ public class App {
         AppComponent component = DaggerAppComponent.create();
 
         Javalin.create(config -> {
-            config.router.mount(router -> {
-                router.beforeMatched(ctx -> {
-                    if (!ctx.path().equals("/health")) {
-                        component.authHandler().handle(ctx);
-                    }
-                });
+            config.routes.beforeMatched(ctx -> {
+                if (!ctx.path().equals("/health")) {
+                    component.authHandler().handle(ctx);
+                }
             });
             config.routes.apiBuilder(() -> {
                 get("/health", ctx -> ctx.status(200));

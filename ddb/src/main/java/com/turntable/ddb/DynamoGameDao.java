@@ -116,12 +116,14 @@ public class DynamoGameDao implements IGameDao {
     @Override
     public void update(String gameId, Game game) {
         StringBuilder setExpr = new StringBuilder(
-                "SET #s = :status, " + PLAYERS + " = :players, " + CREATED_TIMESTAMP + " = :createdTs");
+                "SET #s = :status, #pl = :players, #ct = :createdTs");
         List<String> removeAttrs = new ArrayList<>();
         Map<String, String> nameMap = new HashMap<>();
         Map<String, AttributeValue> valueMap = new HashMap<>();
 
         nameMap.put("#s", STATUS);
+        nameMap.put("#pl", PLAYERS);
+        nameMap.put("#ct", CREATED_TIMESTAMP);
         valueMap.put(":status", AttributeValue.fromS(game.getStatus().name()));
         valueMap.put(":players", AttributeValue.fromL(game.getPlayers().stream()
                 .map(AttributeValue::fromS)
@@ -129,10 +131,12 @@ public class DynamoGameDao implements IGameDao {
         valueMap.put(":createdTs", AttributeValue.fromS(game.getCreatedTimestamp().toString()));
 
         if (game.getCurrentPlayer() != null) {
-            setExpr.append(", ").append(CURRENT_PLAYER).append(" = :currentPlayer");
+            setExpr.append(", #cp = :currentPlayer");
+            nameMap.put("#cp", CURRENT_PLAYER);
             valueMap.put(":currentPlayer", AttributeValue.fromS(game.getCurrentPlayer()));
         } else {
-            removeAttrs.add(CURRENT_PLAYER);
+            nameMap.put("#cp", CURRENT_PLAYER);
+            removeAttrs.add("#cp");
         }
 
         if (game.getResult() != null) {
@@ -140,10 +144,12 @@ public class DynamoGameDao implements IGameDao {
             if (game.getResult().getWinnerId() != null) {
                 resultMap.put(WINNER_ID, AttributeValue.fromS(game.getResult().getWinnerId()));
             }
-            setExpr.append(", ").append(RESULT).append(" = :result");
+            setExpr.append(", #r = :result");
+            nameMap.put("#r", RESULT);
             valueMap.put(":result", AttributeValue.fromM(resultMap));
         } else {
-            removeAttrs.add(RESULT);
+            nameMap.put("#r", RESULT);
+            removeAttrs.add("#r");
         }
 
         String updateExpr = setExpr.toString();

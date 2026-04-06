@@ -255,9 +255,10 @@ class DynamoGameDaoTest {
         verify(client).updateItem(captor.capture());
         String expr = captor.getValue().updateExpression();
 
+        Map<String, String> nameMap = captor.getValue().expressionAttributeNames();
         assertTrue(expr.contains("REMOVE"));
-        assertTrue(expr.contains("currentPlayer"));
-        assertTrue(expr.contains("result"));
+        assertTrue(nameMap.containsValue("currentPlayer"));
+        assertTrue(nameMap.containsValue("result"));
     }
 
     @Test
