@@ -13,7 +13,8 @@ public class ChatController {
     private final ChatService chatService;
 
     public void getOne(Context ctx) {
-        throw new UnsupportedOperationException("Unimplemented method 'getOne'");
+        String chatId = ctx.pathParam("chat-id");
+        ctx.json(chatService.listMessages(chatId));
     }
 
     public void webSocketEvents(WsConfig config) {}
