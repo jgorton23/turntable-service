@@ -12,6 +12,14 @@ public interface IUserClient {
     User createUser(User user);
 
     /**
+     * Retrieves a user by their ID.
+     *
+     * @param userId the ID of the user
+     * @return the user, or null if not found
+     */
+    User getUser(String userId);
+
+    /**
      * Updates an existing user's details.
      *
      * @param userId the ID of the user to update

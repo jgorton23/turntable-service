@@ -52,6 +52,12 @@ public class TurnTableClient implements IUserClient, IGameClient, IFriendClient,
 
     /** {@inheritDoc} */
     @Override
+    public User getUser(String userId) {
+        return userDao.findById(userId);
+    }
+
+    /** {@inheritDoc} */
+    @Override
     public void updateUser(String userId, User user) {
         userDao.update(userId, user);
     }

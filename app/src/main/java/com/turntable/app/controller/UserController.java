@@ -1,5 +1,6 @@
 package com.turntable.app.controller;
 
+import com.turntable.app.service.UserService;
 import io.javalin.apibuilder.CrudHandler;
 import io.javalin.http.Context;
 import javax.inject.Inject;
@@ -8,20 +9,22 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor(onConstructor_ = {@Inject})
 public class UserController implements CrudHandler {
 
+    private final UserService userService;
+
     @Override
-    public void create(Context arg0) {
+    public void create(Context ctx) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'create'");
     }
 
     @Override
-    public void delete(Context arg0, String arg1) {
+    public void delete(Context ctx, String userId) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'delete'");
     }
 
     @Override
-    public void getAll(Context arg0) {
+    public void getAll(Context ctx) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getAll'");
     }
@@ -32,7 +35,7 @@ public class UserController implements CrudHandler {
     }
 
     @Override
-    public void update(Context arg0, String arg1) {
+    public void update(Context ctx, String userId) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'update'");
     }
